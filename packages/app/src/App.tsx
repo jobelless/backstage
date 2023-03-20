@@ -43,6 +43,7 @@ import AlarmIcon from '@material-ui/icons/Alarm';
 import { HomepageCompositionRoot } from '@backstage/plugin-home';
 import { HomePage } from './components/home/HomePage';
 import { FrontendPage } from '@internal/plugin-frontend';
+import { ResourceGroupPage } from '@internal/plugin-resource-group';
 
 
 const microsoftAuthProvider: SignInProviderConfig = {
@@ -142,6 +143,7 @@ const routes = (
     <Route path="/settings" element={<UserSettingsPage />} />
     <Route path="/catalog-graph" element={<CatalogGraphPage />} />
     <Route path="/frontend" element={<FrontendPage />} />
+    <Route path="/resource-group" element={<ResourceGroupPage />} />
   </FlatRoutes>
 );
 

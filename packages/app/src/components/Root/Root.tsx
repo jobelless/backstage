@@ -36,6 +36,7 @@ import ResourceIcon from '@material-ui/icons/Work';
 import SystemIcon from '@material-ui/icons/Category';
 import UserIcon from '@material-ui/icons/Person';
 import CategoryIcon from '@material-ui/icons/Category';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 const useSidebarLogoStyles = makeStyles({
   root: {
@@ -114,6 +115,20 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
               title="Users"
               to="catalog?filters[kind]=user"
               icon={UserIcon}
+            />
+          </SidebarSubmenu>
+        </SidebarItem>
+        <SidebarItem icon={CategoryIcon} to="plugins" text="Plugins">
+          <SidebarSubmenu title="Catalog">
+            <SidebarSubmenuItem
+              title="Frontend"
+              to="frontend"
+              icon={DomainIcon}
+            />
+            <SidebarSubmenuItem
+              title="Resource Group"
+              to="resource-group"
+              icon={DomainIcon}
             />
           </SidebarSubmenu>
         </SidebarItem>

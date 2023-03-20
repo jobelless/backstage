@@ -2,17 +2,16 @@ import { createPlugin, createRoutableExtension } from '@backstage/core-plugin-ap
 
 import { rootRouteRef } from './routes';
 
-export const frontendPlugin = createPlugin({
-  id: 'frontend',
+export const resourceGroupPlugin = createPlugin({
+  id: 'resource-group',
   routes: {
     root: rootRouteRef,
   },
-  featureFlags: [{ name: 'show-frontend-plugin' }],
 });
 
-export const FrontendPage = frontendPlugin.provide(
+export const ResourceGroupPage = resourceGroupPlugin.provide(
   createRoutableExtension({
-    name: 'FrontendPage',
+    name: 'ResourceGroupPage',
     component: () =>
       import('./components/ExampleComponent').then(m => m.ExampleComponent),
     mountPoint: rootRouteRef,
