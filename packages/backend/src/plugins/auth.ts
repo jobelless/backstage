@@ -1,3 +1,4 @@
+import { DEFAULT_NAMESPACE, stringifyEntityRef } from '@backstage/catalog-model';
 import {
   createRouter,
   providers,
@@ -47,6 +48,33 @@ export default async function createPlugin(
             });
           },
           // resolver: providers.github.resolvers.usernameMatchingUserEntityName(),
+        },
+      }),
+      microsoft: providers.microsoft.create({
+        signIn: {
+          resolver: async ({ profile }, ctx) => {
+            if (!profile.email) {
+              throw new Error(
+                'Login failed, user profile does not contain an email',
+              );
+            }
+            // We again use the local part of the email as the user name.
+            const [localPart] = profile.email.split('@');
+
+            // By using `stringifyEntityRef` we ensure that the reference is formatted correctly
+            const userEntityRef = stringifyEntityRef({
+              kind: 'User',
+              name: localPart,
+              namespace: DEFAULT_NAMESPACE,
+            });
+
+            return ctx.issueToken({
+              claims: {
+                sub: userEntityRef,
+                ent: [userEntityRef],
+              },
+            });
+          },
         },
       }),
     },
