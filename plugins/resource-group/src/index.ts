@@ -1,1 +1,1 @@
-export { resourceGroupPlugin, ResourceGroupPage } from './plugin';
+export { resourceGroupPlugin, ResourceGroupPage, ResourceGroupViewPage } from './plugin';

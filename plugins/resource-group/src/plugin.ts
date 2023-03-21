@@ -13,7 +13,16 @@ export const ResourceGroupPage = resourceGroupPlugin.provide(
   createRoutableExtension({
     name: 'ResourceGroupPage',
     component: () =>
-      import('./components/ExampleComponent').then(m => m.ExampleComponent),
+      import('./components/List').then(m => m.default),
+    mountPoint: rootRouteRef,
+  }),
+);
+
+export const ResourceGroupViewPage = resourceGroupPlugin.provide(
+  createRoutableExtension({
+    name: 'ResourceGroupViewPage',
+    component: () =>
+      import('./components/ExampleFetchComponent').then(m => m.ExampleFetchComponent),
     mountPoint: rootRouteRef,
   }),
 );
