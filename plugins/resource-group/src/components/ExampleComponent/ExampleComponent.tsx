@@ -69,20 +69,6 @@ const Example: React.FC = () => {
 
   useEffect(() => {
     if (msalToken && subscriptionId) {
-      fetch(`${backendUrl}/api/rg/getResourceGroups`, {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        method: "POST",
-        body: JSON.stringify({ accessToken: msalToken.accessToken, subscriptionId })
-      })
-        .then(res => res.json())
-        .then(res => {
-          setResourceGroups(res.value)
-          setLoading(false)
-        })
-
       fetch(`${backendUrl}/api/rg/getLocations`, {
         headers: {
           'Accept': 'application/json',
@@ -99,6 +85,31 @@ const Example: React.FC = () => {
     }
   }, [msalToken, subscriptionId, backendUrl])
 
+  const loadResourceGroups = useCallback(() => {
+    subscriptions.map(sub => {
+      fetch(`${backendUrl}/api/rg/getResourceGroups`, {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify({ accessToken: msalToken!.accessToken, subscriptionId: sub.subscriptionId })
+      })
+        .then(res => res.json())
+        .then(res => {
+          const resourceGroupsWithSubscription = res.value.map((rg: any) => ({ ...rg, subscription: sub }))
+          setResourceGroups(resourceGroupsWithSubscription)
+          setLoading(false)
+        })
+    })
+  }, [msalToken, subscriptions, backendUrl])
+
+  useEffect(() => {
+    if (msalToken && subscriptions.length > 0) {
+      loadResourceGroups()
+    }
+  }, [msalToken, subscriptions, backendUrl, loadResourceGroups])
+
   const createResourceGroup = () => {
     fetch(`${backendUrl}/api/rg/createResourceGroup`, {
       headers: {
@@ -112,7 +123,8 @@ const Example: React.FC = () => {
           location: "eastus2"
         }
       })
-    })
+    }).then(res => res.json())
+      .then(() => loadResourceGroups())
   }
 
   const deleteResourceGroup = () => {
@@ -126,7 +138,7 @@ const Example: React.FC = () => {
         accessToken: msalToken!.accessToken,
         subscriptionId, resourceName: "test-only"
       })
-    })
+    }).then(() => loadResourceGroups())
   }
 
 

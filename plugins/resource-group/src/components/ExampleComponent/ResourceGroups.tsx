@@ -11,7 +11,22 @@ type ResourceGroup = {
   },
   "properties": {
     "provisioningState": string
+  },
+  subscription: {
+    "id": string,
+    "authorizationSource": string,
+    "managedByTenants": [],
+    "subscriptionId": string,
+    "tenantId": string,
+    "displayName": string,
+    "state": string,
+    "subscriptionPolicies": {
+      "locationPlacementId": string,
+      "quotaId": string,
+      "spendingLimit": string,
+    }
   }
+
 }
 
 type DenseTableProps = {
@@ -25,6 +40,7 @@ export const ResourceTable = ({ resourceGroups, loading }: DenseTableProps) => {
     { title: 'Name', field: 'name' },
     { title: 'Location', field: 'location' },
     { title: 'Type', field: 'type' },
+    { title: 'Subscription', field: 'subscription.displayName' },
   ];
 
   if (loading) {
