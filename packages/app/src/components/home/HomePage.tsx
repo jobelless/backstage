@@ -7,13 +7,13 @@ export const HomePage = () => {
     <Grid container spacing={3}>
       <Grid item xs={12} md={4}>
         <HomePageCompanyLogo />
-        <HomePageToolkit
+        {/* <HomePageToolkit
           tools={Array(8).fill({
             url: '#',
             label: 'link',
             icon: <TemplateBackstageLogoIcon />,
           })}
-        />
+        /> */}
       </Grid>
     </Grid>
   );

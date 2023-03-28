@@ -13,7 +13,7 @@ export const ResourceGroupPage = resourceGroupPlugin.provide(
   createRoutableExtension({
     name: 'ResourceGroupPage',
     component: () =>
-      import('./components/List').then(m => m.default),
+      import('./components/ExampleComponent').then(m => m.ExampleComponent),
     mountPoint: rootRouteRef,
   }),
 );
