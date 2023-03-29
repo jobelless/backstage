@@ -54,8 +54,8 @@ const request = async (options: AxiosRequestConfig): Promise<void> => {
   }
 };
 
-const callAPI = async (req: any, response: any, config: any) => {
-  const apiResponse = await request({
+const callAPI = async (req: any, response: any, next: any, config: any) => {
+  request({
     url: config.url,
     method: config.method,
     headers: {
@@ -63,7 +63,8 @@ const callAPI = async (req: any, response: any, config: any) => {
     },
     data: config.data
   })
-  response.send(apiResponse)
+    .then(res => response.send(res))
+    .catch(err => next(err))
 }
 
 export default callAPI;

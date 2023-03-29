@@ -15,39 +15,39 @@ export async function createRouter(options: RouterOptions): Promise<express.Rout
   router.use(express.json());
   router.use(errorHandler());
 
-  router.post('/getSubscriptions', async (req, response) => {
-    request(req, response, {
+  router.post('/getSubscriptions', async (req, response, next) => {
+    request(req, response, next, {
       url: '/subscriptions',
       method: 'GET',
     })
   })
 
-  router.post('/getResourceGroups', async (req, response) => {
-    request(req, response, {
+  router.post('/getResourceGroups', async (req, response, next) => {
+    request(req, response, next, {
       url: `/subscriptions/${req.body.subscriptionId}/resourcegroups`,
       method: 'GET',
 
     })
   })
 
-  router.post('/getLocations', async (req, response) => {
-    request(req, response, {
+  router.post('/getLocations', async (req, response, next) => {
+    request(req, response, next, {
       url: `/subscriptions/${req.body.subscriptionId}/locations`,
       method: 'GET',
 
     })
   })
 
-  router.post('/createResourceGroup', async (req, response) => {
-    request(req, response, {
+  router.post('/createResourceGroup', async (req, response, next) => {
+    request(req, response, next, {
       url: `/subscriptions/${req.body.subscriptionId}/resourcegroups/${req.body.resourceName}`,
       method: 'PUT',
       data: req.body.data
     })
   })
 
-  router.post('/deleteResourceGroup', async (req, response) => {
-    request(req, response, {
+  router.post('/deleteResourceGroup', async (req, response, next) => {
+    request(req, response, next, {
       url: `/subscriptions/${req.body.subscriptionId}/resourcegroups/${req.body.resourceName}`,
       method: 'DELETE',
     })

@@ -127,7 +127,7 @@ const Example: React.FC = () => {
       .then(() => loadResourceGroups())
   }
 
-  const deleteResourceGroup = () => {
+  const deleteResourceGroup = (resourceName: string) => {
     fetch(`${backendUrl}/api/rg/deleteResourceGroup`, {
       headers: {
         'Accept': 'application/json',
@@ -136,7 +136,7 @@ const Example: React.FC = () => {
       method: "POST",
       body: JSON.stringify({
         accessToken: msalToken!.accessToken,
-        subscriptionId, resourceName: "test-only"
+        subscriptionId, resourceName
       })
     }).then(() => loadResourceGroups())
   }
@@ -164,8 +164,7 @@ const Example: React.FC = () => {
           </Grid>
           <Grid item>
             <Button variant="outlined" onClick={createResourceGroup}>Create</Button>
-            <Button variant="outlined" onClick={deleteResourceGroup}>Delete</Button>
-            <ResourceTable resourceGroups={resourceGroups} loading={loading} />
+            <ResourceTable resourceGroups={resourceGroups} loading={loading} deleteResourceGroup={deleteResourceGroup} />
           </Grid>
         </Grid>
       </Content>
